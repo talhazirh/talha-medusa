@@ -8,7 +8,7 @@
   </a>
 </p>
 <h1 align="center">
-  Medusa
+  Talhanin deli manyak medusa backendi
 </h1>
 
 <h4 align="center">
