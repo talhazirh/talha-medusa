@@ -29,16 +29,8 @@ FROM base
 COPY --from=prod-deps /app/node_modules /app/node_modules
 COPY --from=builder /app/.medusa ./
 COPY --from=builder /app/package.json ./
-COPY --from=builder /app/medusa-config.ts ./
-COPY --from=builder /app/tsconfig.json ./
-
-# Create directories for uploads and static files
-RUN mkdir -p /app/uploads /app/static
+COPY --from=builder /app/medusa-config.js ./
 
 EXPOSE 9000 7001
 
-ENV NODE_ENV=production
-ENV BACKEND_URL=http://localhost:9000
-
-# Add migration step to the entrypoint script
-CMD ["sh", "-c", "npx medusa db:migrate && npm run start:prod"]
+CMD ["sh", "-c", "npx medusa db:setup --db medusa-talha-medusa-ogreniyor && npm run start:prod"]
