@@ -13,13 +13,20 @@
     "medusa"
   ],
   "scripts": {
-    "build": "medusa build",
-    "seed": "medusa exec ./src/scripts/seed.ts",
+   "dev": "medusa develop",
+    "dev:email": "email dev --dir=./src/modules/email/templates --port=9090",
+    "build": "medusa build && node src/scripts/postBuild.js",
     "start": "medusa start",
-    "hasan": "medusa develop",
-    "test:integration:http": "TEST_TYPE=integration:http NODE_OPTIONS=--experimental-vm-modules jest --silent=false --runInBand --forceExit",
-    "test:integration:modules": "TEST_TYPE=integration:modules NODE_OPTIONS=--experimental-vm-modules jest --silent --runInBand --forceExit",
-    "test:unit": "TEST_TYPE=unit NODE_OPTIONS=--experimental-vm-modules jest --silent --runInBand --forceExit"
+    "start:prod": "medusa start --verbose",
+    "db:create": "medusa db:create",
+    "db:migrate": "medusa db:migrate",
+    "db:generate": "medusa db:generate",
+    "db:sync-links": "medusa db:sync-links",
+    "db:seed": "medusa exec ./src/scripts/seed.ts",
+    "docker:setup": "cp .env.template .env && pnpm project:setup",
+    "project:setup": "pnpm install && pnpm db:setup && pnpm db:seed && pnpm create-user",
+    "format": "prettier --write a.",
+    "clean": "rm -rf .medusa .medusa-db node_modules"
   },
   "dependencies": {
     "@medusajs/admin-sdk": "latest",
