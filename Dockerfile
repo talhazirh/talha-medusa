@@ -35,4 +35,5 @@ VOLUME ["/app/uploads", "/app/static"]
 
 EXPOSE 9000
 
-CMD ["npm", "run", "start:prod"]
+# Changed this line to use the correct start command for Medusa
+CMD ["node", "../.medusa/medusa-config.js"]
