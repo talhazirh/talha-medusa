@@ -13,15 +13,15 @@ services:
       - postgres
       - redis
     environment:
-      NODE_ENV: production
-      STORE_CORS: "http://localhost:8000,https://docs.medusajs.com"
-      ADMIN_CORS: "https://adminmedusa.omerzirh.com,http://localhost:9000"
-      AUTH_CORS: "https://adminmedusa.omerzirh.com,http://localhost:9000"
-      REDIS_URL: "redis://:X8miVNgb49uUknazKGwHKQL7GpW75DWQ0nFDurfp5CgPg4WATw01zhiAUo1JFjVo@bckcgsw44skc40g84w08s0so:6379"
-      JWT_SECRET: "super-secret"
-      COOKIE_SECRET: "super-secret"
-      DATABASE_URL: "postgres://postgres:Orfw7F7AF57Fp7yBZzhXInn2V53XWgyGa7hq2kkzMQsjSyKLdcYtFwiwvkxT1dxa@qwk08sg0co0sgg848kk44cws:5432/medusa-talha-medusa-ogreniyor"
-      MEDUSA_WORKER_MODE: "shared"
+      NODE_ENV: ${NODE_ENV}
+      STORE_CORS: ${STORE_CORS}
+      ADMIN_CORS: ${ADMIN_CORS}
+      AUTH_CORS: ${AUTH_CORS}
+      REDIS_URL: ${REDIS_URL}
+      JWT_SECRET: ${JWT_SECRET}
+      COOKIE_SECRET: ${COOKIE_SECRET}
+      DATABASE_URL: ${DATABASE_URL}
+      MEDUSA_WORKER_MODE: ${MEDUSA_WORKER_MODE}
     volumes:
       - medusa-uploads:/app/uploads
       - medusa-static:/app/static
