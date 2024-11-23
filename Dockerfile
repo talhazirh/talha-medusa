@@ -40,4 +40,5 @@ EXPOSE 9000 7001
 ENV NODE_ENV=production
 ENV BACKEND_URL=http://localhost:9000
 
-CMD ["npm", "run", "start:prod"]
+# Add migration step to the entrypoint script
+CMD ["sh", "-c", "npx medusa db:migrate && npm run start:prod"]
