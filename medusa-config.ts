@@ -18,8 +18,11 @@ const REDIS_URL = process.env.REDIS_URL || "redis://localhost:6379";
 const medusaConfig = {
   projectConfig: {
     databaseUrl: process.env.DATABASE_URL,
-    databaseDriverOptions: SSL_CONFIG,
+    // databaseDriverOptions: SSL_CONFIG,
     databaseLogging: true,
+    database_extra: {
+      ssl: false,
+    },
     redisUrl: REDIS_URL,
     workerMode: WORKER_MODE,
 
