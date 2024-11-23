@@ -20,20 +20,18 @@ FROM base AS builder
 COPY package.json ./
 RUN --mount=type=cache,id=npm,target=/root/.npm npm install
 COPY . .
-RUN npm run build
+# Remove postBuild script since it's not found
+RUN sed -i 's/\&\& node src\/scripts\/postBuild.js//' package.json && \
+    npm run build
 
 FROM base
 
 COPY --from=prod-deps /app/node_modules /app/node_modules
 COPY --from=builder /app/.medusa ./
-COPY --from=builder /app/tsconfig.json ./
-COPY --from=builder /app/medusa-config.ts ./
+COPY --from=builder /app/package.json ./
+COPY --from=builder /app/medusa-config.js ./
 
-WORKDIR /app/server
-
-VOLUME ["/app/uploads", "/app/static"]
-
-EXPOSE 9000
+EXPOSE 9000 7001
 
 # Changed this line to use the correct start command for Medusa
 CMD ["node", "../.medusa/medusa-config.js"]

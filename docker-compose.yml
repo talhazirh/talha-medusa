@@ -1,35 +1,54 @@
 version: "3.8"
-
 services:
-  medusa-omer:
+  medusa-talha:
     platform: linux/amd64
     build:
       context: .
       dockerfile: Dockerfile
-    image: ghcr.io/omerzirh/medusa-store
-    container_name: medusa-omer
+    image: ghcr.io/talhazirh/talha-medusa
+    container_name: medusa-talha
     networks:
       - medusa-network
+    depends_on:
+      - postgres
+      - redis
     environment:
       NODE_ENV: production
       STORE_CORS: "http://localhost:8000,https://docs.medusajs.com"
       ADMIN_CORS: "https://adminmedusa.omerzirh.com,http://localhost:9000"
       AUTH_CORS: "https://adminmedusa.omerzirh.com,http://localhost:9000"
-      REDIS_URL: "redis://localhost:6379"
+      REDIS_URL: "redis://:X8miVNgb49uUknazKGwHKQL7GpW75DWQ0nFDurfp5CgPg4WATw01zhiAUo1JFjVo@bckcgsw44skc40g84w08s0so:6379"
       JWT_SECRET: "super-secret"
       COOKIE_SECRET: "super-secret"
-      DATABASE_URL: "postgres://postgres@localhost/medusa-talha-medusa-ogreniyor"
+      DATABASE_URL: "postgres://postgres:Orfw7F7AF57Fp7yBZzhXInn2V53XWgyGa7hq2kkzMQsjSyKLdcYtFwiwvkxT1dxa@qwk08sg0co0sgg848kk44cws:5432/medusa-talha-medusa-ogreniyor"
       MEDUSA_WORKER_MODE: "shared"
     volumes:
-      - medusa-uploads:/app/server/uploads
-      - medusa-static:/app/server/static
+      - medusa-uploads:/app/uploads
+      - medusa-static:/app/static
     ports:
       - "9000:9000"
-      - "7001:7001" 
+      - "7001:7001"
+
+  postgres:
+    image: postgres:16-alpine
+    networks:
+      - medusa-network
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: medusa-talha-medusa
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:7-alpine
+    networks:
+      - medusa-network
 
 volumes:
   medusa-uploads:
   medusa-static:
+  postgres-data:
 
 networks:
   medusa-network:
