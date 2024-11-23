@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+  medusa-omer:
+    platform: linux/amd64
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ghcr.io/omerzirh/medusa-store
+    container_name: medusa-omer
+    networks:
+      - medusa-network
+    environment:
+      NODE_ENV: production
+      STORE_CORS: "http://localhost:8000,https://docs.medusajs.com"
+      ADMIN_CORS: "https://adminmedusa.omerzirh.com,http://localhost:9000"
+      AUTH_CORS: "https://adminmedusa.omerzirh.com,http://localhost:9000"
+      REDIS_URL: "redis://localhost:6379"
+      JWT_SECRET: "super-secret"
+      COOKIE_SECRET: "super-secret"
+      DATABASE_URL: "postgres://postgres@localhost/medusa-talha-medusa-ogreniyor"
+      MEDUSA_WORKER_MODE: "shared"
+    volumes:
+      - medusa-uploads:/app/server/uploads
+      - medusa-static:/app/server/static
+    ports:
+      - "9000:9000"
+      - "7001:7001" 
+
+volumes:
+  medusa-uploads:
+  medusa-static:
+
+networks:
+  medusa-network:
+    driver: bridge
