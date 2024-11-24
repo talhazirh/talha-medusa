@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.4
 
-FROM node:20.18-alpine AS base
+FROM node:20.18.0-alpine AS base
 
 RUN apk add --no-cache \
     python3 \
@@ -13,12 +13,12 @@ WORKDIR /app
 FROM base AS prod-deps
 
 COPY package.json package-lock.json ./
-RUN --mount=type=cache,id=npm,target=/root/.npm npm install --only=production
+RUN --mount=type=cache,id=npm,target=/root/.npm npm ci --omit=dev
 
 FROM base AS builder
 
 COPY package.json package-lock.json ./
-RUN --mount=type=cache,id=npm,target=/root/.npm npm install
+RUN --mount=type=cache,id=npm,target=/root/.npm npm ci
 COPY . .
 RUN npm run build
 
