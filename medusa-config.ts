@@ -27,8 +27,8 @@ const medusaConfig = {
     workerMode: WORKER_MODE,
 
     http: {
-      adminCors: "http://localhost:5173,http://localhost:9000,https://docs.medusajs.com,https://admin.autolier.pl",
-      authCors: "http://localhost:5173,http://localhost:9000,https://docs.medusajs.com,https://admin.autolier.pl",
+      adminCors: "http://localhost:5173,http://localhost:9002,https://docs.medusajs.com,https://admin.autolier.pl",
+      authCors: "http://localhost:5173,http://localhost:9002,https://docs.medusajs.com,https://admin.autolier.pl",
       storeCors: "http://localhost:8000,https://docs.medusajs.com,https://autolier.pl",
       jwtSecret: "supersecret",
       cookieSecret: "supersecret",

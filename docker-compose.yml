@@ -1,6 +1,7 @@
 version: "3.8"
+
 services:
-  medusa-talha:
+  medusa-omer:
     platform: linux/amd64
     build:
       context: .
@@ -9,51 +10,26 @@ services:
     container_name: medusa-talha
     networks:
       - medusa-network
-    depends_on:
-      - postgres
-      - redis
     environment:
-      NODE_ENV: ${NODE_ENV:-production}
-      BACKEND_URL: ${BACKEND_URL:-http://localhost:9000}
-      STORE_CORS: ${STORE_CORS:-http://localhost:8000,https://docs.medusajs.com,https://autolier.pl}
-      ADMIN_CORS: ${ADMIN_CORS:-http://localhost:5173,http://localhost:9000,https://docs.medusajs.com,https://admin.autolier.pl}
-      AUTH_CORS: ${AUTH_CORS:-http://localhost:5173,http://localhost:9000,https://docs.medusajs.com,https://admin.autolier.pl}
-      REDIS_URL: ${REDIS_URL:-redis://redis:6379}
-      JWT_SECRET: ${JWT_SECRET:-supersecret}
-      COOKIE_SECRET: ${COOKIE_SECRET:-supersecret}
-      DATABASE_URL: ${DATABASE_URL:-postgres://postgres:postgres@postgres/medusa-talha-medusa}
-      MEDUSA_WORKER_MODE: ${MEDUSA_WORKER_MODE:-shared}
-      DISABLE_ADMIN: ${DISABLE_ADMIN:-false}
+      NODE_ENV: production
+      STORE_CORS: "*"
+      ADMIN_CORS: "https://adminmedusa.omerzirh.com,http://localhost:9002"
+      AUTH_CORS: "https://adminmedusa.omerzirh.com,http://localhost:9002"
+      REDIS_URL: redis://:uOnV9g2MYYcQUHUuDyEKLcmNmOkPzqreMSz2zFjvDgWkIQUqRK8AwSxbAwppDLxD@5.161.64.194:6379
+      JWT_SECRET: "super-secret"
+      COOKIE_SECRET: "super-secret"
+      DATABASE_URL: postgres://postgres:Omer1234@5.161.64.194:5432/medusa-medusa-store
+      MEDUSA_WORKER_MODE: "shared"
     volumes:
-      - medusa-uploads:/app/uploads
-      - medusa-static:/app/static
+      - medusa-uploads:/app/server/uploads
+      - medusa-static:/app/server/static
     ports:
-      - "9000:9000"
-      - "7001:7001"
-
-  postgres:
-    image: postgres:15-alpine
-    networks:
-      - medusa-network
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER:-postgres}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
-      POSTGRES_DB: ${POSTGRES_DB:-medusa-talha-medusa}
-    volumes:
-      - postgres-data:/var/lib/postgresql/data
-
-  redis:
-    image: redis:7-alpine
-    networks:
-      - medusa-network
-    volumes:
-      - redis-data:/data
+      - "9002:9002"
+      - "7002:7002" 
 
 volumes:
   medusa-uploads:
   medusa-static:
-  postgres-data:
-  redis-data:
 
 networks:
   medusa-network:
