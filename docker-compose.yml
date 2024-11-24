@@ -11,15 +11,15 @@ services:
     networks:
       - medusa-network
     environment:
-      NODE_ENV: production
-      STORE_CORS: "*"
-      ADMIN_CORS: "https://adminmedusa.omerzirh.com,http://localhost:9002"
-      AUTH_CORS: "https://adminmedusa.omerzirh.com,http://localhost:9002"
-      REDIS_URL: redis://:uOnV9g2MYYcQUHUuDyEKLcmNmOkPzqreMSz2zFjvDgWkIQUqRK8AwSxbAwppDLxD@5.161.64.194:6379
-      JWT_SECRET: "super-secret"
-      COOKIE_SECRET: "super-secret"
-      DATABASE_URL: postgres://postgres:Omer1234@5.161.64.194:5432/medusa-medusa-store
-      MEDUSA_WORKER_MODE: "shared"
+    NODE_ENV: ${NODE_ENV}
+    STORE_CORS: ${STORE_CORS}
+    ADMIN_CORS: ${ADMIN_CORS}
+    AUTH_CORS: ${AUTH_CORS}
+    REDIS_URL: ${REDIS_URL}
+    JWT_SECRET: ${JWT_SECRET}
+    COOKIE_SECRET: ${COOKIE_SECRET}
+    DATABASE_URL: ${DATABASE_URL}
+    MEDUSA_WORKER_MODE: ${MEDUSA_WORKER_MODE}
     volumes:
       - medusa-uploads:/app/server/uploads
       - medusa-static:/app/server/static
