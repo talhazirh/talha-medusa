@@ -13,12 +13,12 @@ WORKDIR /app
 FROM base AS prod-deps
 
 COPY package.json package-lock.json ./
-RUN --mount=type=cache,id=npm,target=/root/.npm npm ci --only=production
+RUN --mount=type=cache,id=npm,target=/root/.npm npm install --only=production
 
 FROM base AS builder
 
 COPY package.json package-lock.json ./
-RUN --mount=type=cache,id=npm,target=/root/.npm npm ci
+RUN --mount=type=cache,id=npm,target=/root/.npm npm install
 COPY . .
 RUN npm run build
 
